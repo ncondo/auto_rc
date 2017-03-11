@@ -8,16 +8,15 @@
 #define NUM_SAMPLES_PER_SENSOR  4  // average 4 analog samples per sensor reading
 #define EMITTER_PIN             QTR_NO_EMITTER_PIN  // emitter is default none connected
 
-
 // sensors 0 through 5 are connected to analog inputs 0 through 5, respectively
 QTRSensorsAnalog qtra((unsigned char[]) {0, 1, 2, 3}, 
   NUM_SENSORS, NUM_SAMPLES_PER_SENSOR, EMITTER_PIN);
 unsigned int sensorValues[NUM_SENSORS];
 
+// assign the motors for steering and driving forward/backward
 Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 Adafruit_DCMotor *steer = AFMS.getMotor(3);
 Adafruit_DCMotor *drive = AFMS.getMotor(4);
-
 
 void setup() {
   
@@ -63,7 +62,6 @@ void loop() {
   
 }
 
-
 void steerLeft() {
   steer->run(FORWARD);
 }
@@ -88,7 +86,7 @@ void driveStop() {
   drive->run(RELEASE);
 }
 
-
+// set the thresholds for the infrared sensors
 void calibrateSensors() {
   pinMode(13, OUTPUT);
   digitalWrite(13, HIGH); // turn on Arduino's LED to indicate we are in calibration mode
